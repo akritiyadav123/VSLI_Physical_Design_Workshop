@@ -1,4 +1,4 @@
-# VSLI_Physical_Design_Workshop
+![Screenshot from 2023-08-14 16-08-26 (1)](https://github.com/akritiyadav123/VSLI_Physical_Design_Workshop/assets/126105656/459accd4-8c08-44da-b17b-f2d4803c81a3)# VSLI_Physical_Design_Workshop
 # Workshop Day wise Content :
 ## Day1 – Inception of open-source EDA, OpenLANE and Sky130 PDK
 How to talk to computers
@@ -147,10 +147,7 @@ package require openlane 0.9
 
 prep -design picorv32a
 
-
-
-
-
+![Screenshot from 2023-08-14 16-08-26 (1)](https://github.com/akritiyadav123/VSLI_Physical_Design_Workshop/assets/126105656/d0b939e5-d138-4000-8c59-38d0c0a3f2e5)
 
 
 SS

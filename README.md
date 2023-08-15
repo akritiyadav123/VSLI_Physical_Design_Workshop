@@ -76,6 +76,8 @@ RTL2GDS is the process of converting a Register Transfer Level (RTL) design into
 
 ## Openlane Design Flow
 
+![openlane](https://github.com/akritiyadav123/VSLI_Physical_Design_Workshop/assets/126105656/76e7c630-115f-4a73-bc11-1e2cf0ed9b0f)
+
 
 
 

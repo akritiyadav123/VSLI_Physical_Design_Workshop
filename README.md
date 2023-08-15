@@ -137,10 +137,13 @@ The openLANE file structure looks something like this:
 
 ## Running OpenLANE and Preparing a Design
 To initiate OpenLANE, execute the Docker command and enter an interactive session. The flow.tcl script is responsible for defining the specific parameters of the OpenLANE flow. This script outlines the configuration details for the entire design process.
+<br />
 docker
+<br \>
 ./flow.tcl -interactive
+<br \>
 package require openlane 0.9
-
+<br />
 
 prep -design picorv32a
 
@@ -153,63 +156,58 @@ prep -design picorv32a
 SS
 
 
-Review of files & Synthesis step
-A "runs" folder is generated within the picorv32a folder.
-The merged file is created during the merging operation in the pircorv32a design preparation (it merges lef and techlef files)
-Next, we run the synthesis of picorv32a design in the openlane interactive terminal:
+### Review of files & Synthesis step
+- A "runs" folder is generated within the picorv32a folder.
+- The merged file is created during the merging operation in the pircorv32a design preparation (it merges lef and techlef files)
+- Next, we run the synthesis of picorv32a design in the openlane interactive terminal:
 
 
-Run synthesis
+### Run synthesis
 
 
-SS
-The yosys and ABC tools are utilised to convert RTL to gate level netlist.
-Calcuation of Flop Ratio:
-Flop ratio = Number of D Flip flops 
-             ______________________
-             Total Number of cells
+### SS
 
+- The yosys and ABC tools are utilised to convert RTL to gate level netlist.
+- Calcuation of Flop Ratio:<br \>
+<b> Flop ratio = Number of D Flip flops / Total Number of cells
+</b>
 
-dfxtp_4 = 1613,
+<b>dfxtp_4 = 1613,
 Number of cells = 14876,
-Flop ratio = 1613/14876 = 0.1084 = 10.84%
-We may check the success of the synthesis step by checking the synthesis folder for the synthesized netlist file (.v file)
-The synthesis statistics report can be accessed within the reports directory. It is usually the last yosys file since files are listed chronologically by date of modification.
-The synthesis timings report are as follows:
+Flop ratio = 1613/14876 = 0.1084 = 10.84%</b>
+- We may check the success of the synthesis step by checking the synthesis folder for the synthesized netlist file (.v file)
+- The synthesis statistics report can be accessed within the reports directory. It is usually the last yosys file since files are listed chronologically by date of modification.
+- The synthesis timings report are as follows:
 
-Day 2 Floorplanning & Placement and library cells
-Floorplanning considerations
-Utilization Factor & Aspect Ratio
+### Day 2 Floorplanning & Placement and library cells
+### Floorplanning considerations
+## Utilization Factor & Aspect Ratio
 Two parameters are of importance when it comes to floorplanning namely, Utilisation Factor and Aspect Ratio. They are defined as follows:
-Utilisation Factor =  Area occupied by netlist
-                     __________________________
-                        Total area of core
+Utilisation Factor =  <br /> Area occupied by netlist / Total area of core
 
 
-Aspect Ratio =  Height
-               ________
-                Width
+Aspect Ratio =  <br /> Height / Width
 A Utilisation Factor of 1 signifies 100% utilisation leaving no space for extra cells such as buffer. However, practically, the Utilisation Factor is 0.5-0.6. Likewise, an Aspect ratio of 1 implies that the chip is square shaped. Any value other than 1 implies rectanglular chip.
 
 Creating a unique and well-formatted version of your provided text to avoid plagiarism and make it more reader-friendly:
 
-Pre-Placed Cells Allocation
+### Pre-Placed Cells Allocation
 
 Once the Utilization Factor and Aspect Ratio have been determined, the initial placements of pre-placed cells become the next crucial step. These pre-placed cells consist of IPs containing extensive combinational logic that remains fixed in position once placed. As they are established before the placement and routing stages, they are aptly called pre-placed cells.
 
-Decoupling Capacitors Integration
+### Decoupling Capacitors Integration
 
 To ensure proper functionality, pre-placed cells are encircled by decoupling capacitors (decaps). These capacitors counteract the detrimental effects of resistance and capacitance within long interconnects. The attenuation of power supply voltage along these paths can significantly impact the voltage reaching the logic circuits. Such voltage drops can result in signal values entering undefined regions beyond the acceptable noise margin. Decaps, substantial capacitors charged to match the power supply voltage, are positioned in proximity to the logic circuit. Their primary role involves decoupling the circuit from the power supply by furnishing the requisite current. In addition to averting crosstalk, decaps facilitate localized communication.
 
-Effective Power Planning
+### Effective Power Planning
 
 Although each block on the chip cannot have individual decaps like the pre-placed macros, meticulous power planning ensures that every block has dedicated VDD and VSS pads. These pads connect to both horizontal and vertical power and ground lines, forming a comprehensive power mesh.
 
-Strategic Pin Placement
+### Strategic Pin Placement
 
 The connectivity of logic gates is outlined by the netlist. The area between the core and die accommodates pin placement. Connectivity details, scripted in VHDL or Verilog, dictate the positions of I/O pads for various pins. Subsequently, a logical placement process segregates the pre-placed macro area from the pin zone.
 
-Executing Picorv32a Floorplan in OpenLANE
+### Executing Picorv32a Floorplan in OpenLANE
 
 To run the floorplan for the picorv32a design using OpenLANE, follow these steps:
 
@@ -231,7 +229,7 @@ To run the floorplan for the picorv32a design using OpenLANE, follow these steps
 With these steps and adjustments, you can effectively execute the picorv32a floorplan using OpenLANE. This strategic process sets the foundation for successful chip design and integration.
 
 .
-Run_floorplan
+### Run_floorplan
 
 
 
@@ -240,110 +238,113 @@ After the completion of the floorplan run, you will find a `.def` file within th
 
 
 
-To visualize the floorplan, you can follow these steps:
+<b>To visualize the floorplan, you can follow these steps:</b>
 
 
 1. Navigate to the `results/floorplan` directory.
 2. Invoke the Magic layout tool by typing `magic` in the terminal and pressing Enter.
 Magic provides an intuitive environment for viewing and manipulating integrated circuit layouts, including floorplans. By following these steps, you can effectively examine and analyze the floorplan layout using Magic.
+<br />
 magic -T /home/vsduser/OpenLane/pdks/sky130A/libs.tech/magic/sky130A.tech lef read ../../tmp/merged.min.lef def read picorv32a.def &
 
-One can zoom into Magic layout by selecting an area with left and right mouse click followed by pressing "z" key.
-Various components can be identified by using the what command in tkcon window after making a selection on the component.
-Zooming in also provides a view of decaps present in picorv32a chip.
-The standard cell can be found at the bottom left corner.
+- One can zoom into Magic layout by selecting an area with left and right mouse click followed by pressing "z" key.
+- Various components can be identified by using the what command in tkcon window after making a selection on the component.
+- Zooming in also provides a view of decaps present in picorv32a chip.
+- The standard cell can be found at the bottom left corner.
 
 
 
 
 
 
-Placement Phase
+### Placement Phase
 Following the floorplan, the subsequent crucial step in the OpenLANE ASIC flow is placement. The synthesized netlist is strategically positioned onto the defined floorplan. This phase of placement unfolds in two distinct stages:
-Global Placement:-
+- Global Placement:-
 This stage involves identifying an optimal position for all cells, regardless of legality, which might lead to cell overlaps. Optimization endeavors are focused on minimizing a parameter called "half-parameter wire length."
-2. Detailed Placement:
+- Detailed Placement:
 Subsequent to the global placement, detailed placement takes the reins. This stage dynamically adjusts the positions of cells that were initially positioned during global placement. The primary objective here is to rectify any legality issues that might have arisen.
 The process of ensuring the legality of cell positions holds significant importance, particularly from a timing perspective.
 Legalisation of cells is important from timing point of view.
-Placement run on OpenLANE & view in Magic
+#### Placement run on OpenLANE & view in Magic
 
-Command:
+<b> Command: </b>
 run_placement
 
-Placement Aim: Converging Overflow
+##### Placement Aim: Converging Overflow
 The primary objective of placement is to achieve the convergence of the overflow value. Gradual reduction in the overflow value throughout placement indicates successful convergence and a favorable placement outcome.
+
 Design Visualization in Magic -Once placement is completed, visualize the design using the Magic layout tool in the `results/placement` directory. This step allows you to assess the design layout and evaluate the placement results..
+
 magic -T /home/vsduser/OpenLane/pdks/sky130A/libs.tech/magic/sky130A.tech lef read ../../tmp/merged.max.lef def read picorv32a.def &
 
-Zoomed-in views of the standard cell placement:
+#### Zoomed-in views of the standard cell placement:
 
-standard cell design flow 
-Inputs
-Process design kit (PDK)
-Design rule check (DRC) and layout versus schematic (LVS) rules
-SPICE models
-Libraries
-User-defined specifications
-Design steps
-Circuit design
-Layout design
-Art of layout: Euler's path and stick diagram
-Extraction of parasitics
-Characterization (timing, noise, power)
-Outputs
-Circuit description language (CDL)
-Library exchange format (LEF)
-GDS II
-Extracted SPICE netlist (.cir)
-Timing, noise, and power .lib files
-Standard cell characterization flow
-Read in the models and tech files
-Read extracted spice netlist
-Recognize behavior of the cell
-Read the subcircuits
-Attach power sources
-Apply stimulus to characterization setup
-Provide necessary output capacitance loads
-Provide necessary simulation commands
-GUNA characterization
+## standard cell design flow 
+### Inputs
+- Process design kit (PDK)
+- Design rule check (DRC) and layout versus schematic (LVS) rules
+### SPICE models
+- Libraries
+- User-defined specifications
+### Design steps
+- Circuit design
+- Layout design
+  - Art of layout: Euler's path and stick diagram
+- Extraction of parasitics
+- Characterization (timing, noise, power)
+### Outputs
+- Circuit description language (CDL)
+- Library exchange format (LEF)
+- GDS II
+- Extracted SPICE netlist (.cir)
+- Timing, noise, and power .lib files
+### Standard cell characterization flow
+- Read in the models and tech files
+- Read extracted spice netlist
+- Recognize behavior of the cell
+- Read the subcircuits
+- Attach power sources
+- Apply stimulus to characterization setup
+- Provide necessary output capacitance loads
+- Provide necessary simulation commands
+### GUNA characterization
 The open source software called GUNA can be used for characterization. Steps 1-8 are fed into the GUNA software which generates timing, noise, and power models.
-Day3  Design Librery call
+## Day3  Design Librery call
 OpenLANE allows users to make changes to environment variables on the fly. For instance, if we wish to change the pin placement from equidistant to some other style of placement we may do the following in the openLANE flow:
+<br />
 set ::env(FP_IO_MODE) 2
 
 
-SPICE Deck creation & Simulation
+### SPICE Deck creation & Simulation
 A SPICE deck includes information about the following:
-Model description
-Netlist description
-Component connectivity
-Component values
-Capacitance load
-Nodes
-Simulation type and parameters
-Libraries included
-CMOS inverter Switching Threshold Vm
-Thw sitching threshold of a CMOS inverter is the point on the transfer characteristic where Vin equals Vout (=Vm). At this point both PMOS and NOMOS are in ON state which gives rise to a leakage current
-16 Mask CMOS Fabrication
+- Model description
+- Netlist description
+- Component connectivity
+- Component values
+- Capacitance load
+- Nodes
+- Simulation type and parameters
+- Libraries included
+### CMOS inverter Switching Threshold Vm
+The sitching threshold of a CMOS inverter is the point on the transfer characteristic where Vin equals Vout (=Vm). At this point both PMOS and NOMOS are in ON state which gives rise to a leakage current
+### 16 Mask CMOS Fabrication
 The 16-mask CMOS process consists of the following steps:
-Selection of subtrate: Secting the body/substrate material
-Creating active region for transistors: Isolation between active region pockets by SiO2 and Si3N4 deposition followed by photolithography and etching
-N-well and P-well formation: Ion implanation by Boron for P-well and by Phosphorous for N-well formation
-Formation of gate terminal: NMOS and PMOS gates formed by photolithography techniques
-LDD (lightly doped drain) formation: LDD formed to prevent hot electron effect
-Source & drain formation: Screen oxide added to avoid channelling during implants followed by Aresenic implantation and annealing
-Local interconnect formation: Removal of screen oxide by HF etching. Deposition of Ti for low resistant contacts
-Higher level metal formation: CMP for planarization followed by TiN and Tungsten deposition. Top SiN layer for chip protection
+- Selection of subtrate: Secting the body/substrate material
+- Creating active region for transistors: Isolation between active region pockets by SiO2 and Si3N4 deposition followed by photolithography and etching
+- N-well and P-well formation: Ion implanation by Boron for P-well and by Phosphorous for N-well formation
+- Formation of gate terminal: NMOS and PMOS gates formed by photolithography techniques
+- LDD (lightly doped drain) formation: LDD formed to prevent hot electron effect
+- Source & drain formation: Screen oxide added to avoid channelling during implants followed by Aresenic implantation and annealing
+- Local interconnect formation: Removal of screen oxide by HF etching. Deposition of Ti for low resistant contacts
+- Higher level metal formation: CMP for planarization followed by TiN and Tungsten deposition. Top SiN layer for chip protection
 
 
 
 
-Inverter Standard Cell Layout & SPICE Extraction
+### Inverter Standard Cell Layout & SPICE Extraction
 1. Obtaining Inverter Magic Layout:
    - Integrate the CMOS inverter's Magic layout into the picorv32a design.
-   - Clone the inverter Magic file from `vsdstdcelldesign` by executing
- git clone https://github.com/nickson-jose/vsdstdcelldesign
+   - Clone the inverter Magic file from `vsdstdcelldesign` by executing git clone https://github.com/nickson-jose/vsdstdcelldesign
  - This operation creates a `vsdstdcelldesign` folder within the `openlane_working_dir/openlane` directory.
 
 
@@ -359,30 +360,49 @@ Inverter Standard Cell Layout & SPICE Extraction
 In Sky130 the first layer is called the local interconnect layer or Locali.
 To verify whether the layout is that of CMOS inverter, verification of P-diffusiona nd N-diffusion regions with Polysilicon can be observed.
 Other verification steps are to check drain and source connections. The drains of both PMOS and NMOS must be connected to output port (here, Y) and the sources of both must be connected to power supply VDD (here, VPWR).
+<br />
 LEF or library exchange format: A format that tells us about cell boundaries, VDD and GND lines. It contains no info about the logic of circuit and is also used to protect the IP.
+<br />
 SPICE extraction: Within the Magic environment, following commands are used in tkcon to achieve .mag to .spice extraction:
+<br />
 extract all
+<br />
 ext2spice cthresh 0 rethresh 0
+<br />
 Ext2spice
-
+<b>
 This generates the sky130_in.spice file. This SPICE deck is edited to include pshort.lib and nshort.lib which are the PMOS and NMOS libraries respectively. In addition, the minimum grid size of inverter is measured from the magic layout and incorporated into the deck as: .option scale=0.01u. The model names in the MOSFET definitions are changed to pshort.model.0 and nshort.model.0 respectively for PMOS and NMOS.
 Finally voltage sources and simulation commands are defined as follows:
+<br />
 VDD VPWR 0 3.3V
+<br />
 VSS VGND 0 0
+<br />
 Va A VGND PUSLE(0V 3.3V 0 0.1ns 0.1 ns 2ns 4ns)
+<br />
 .tran 1n 20n
+<br />
 .control
+<br />
 run 
+<br />
 .endc
+<br />
 .end
+<br />
 The final sky130_inv.spice file is modified to:
 
+<br />
 For simulation, ngspice is invoked in the terminal:
+<br />
 ngspice sky130_inv.spice
 
 
+<br />
 The output "y" is to be plotted with "time" and swept over the input "a":
-plot y vs time a
+<br />
+plot y vs time a 
+</b>
 
 
 
@@ -391,90 +411,108 @@ The waveform obtained is as shown:
 
 
 The spikes in the output at switching points is due to low capacitance loads. This can be taken care of by editing the spice deck to increase the load capacitance value.
-Inverter Standard cell characterization
+### Inverter Standard cell characterization
 Four timing parameters are used to characterize the inverter standard cell:
-Rise transition: Time taken for the output to rise from 20% of max value to 80% of max value
-Fall transition- Time taken for the output to fall from 80% of max value to 20% of max value
-Cell rise delay = time(50% output rise) - time(50% input fall)
-Cell fall delay = time(50% output fall) - time(50% input rise)
+- Rise transition: Time taken for the output to rise from 20% of max value to 80% of max value
+- Fall transition- Time taken for the output to fall from 80% of max value to 20% of max value
+- Cell rise delay = time(50% output rise) - time(50% input fall)
+- Cell fall delay = time(50% output fall) - time(50% input rise)
 Rise transition = (2.23843 - 2.17935) = 59.08ps
 Fall transition = (4.09291 - 4.05004) = 42.87ps
 Cell rise delay = (2.20636 - 2.15) = 56.36ps
 Cell fall delay = (4.07479 - 4.05) = 24.79ps
-Magic Features & DRC rules
+### Magic Features & DRC rules
 The technology file is a setup file that declares layer types, colors, patterns, electrical connectivity, DRC, device extraction rules and rules to read LEF and DEF files. Magic layouts can be sourced from opencircuitdesign.com using the command:
+<br />
 wget http://opencircuitdesign.com/open_pdks/archive/drc_tests.tgz
+<br />
 tar xfz drc_tests.tgz
-Day 4: Pre layout Timing Analysis & CTS
+### Day 4: Pre layout Timing Analysis & CTS
 A requirement for ports as specified in tracks.info is that they should be at intersection of horizontal and vertical tracks. The CMOS Inverter ports A and Y are on li1 layer. It needs to be ensured that they're on the intersection of horizontal and vertical tracks. We access the tracks.info file for the pitch and direction information
+<br />
 Technology LEF
+<br />
 Technology LEF part contains the information regarding all the metal interconnects, via information and related design rules whereas cell LEF part contains information related to the geometry of each cell. A sample snapshot is given below to show the information under technology LEF part.
 
 
+<br />
 Port Definition Setup
 After completing the layout, the subsequent task involves extracting a LEF file for the cell. However, it's essential to establish specific properties and definitions for the cell's pins, which substantially assist the placer and router tool. In the context of LEF files, a cell housing ports is presented as a macro cell, where these ports are duly declared as the macro's PINs. Our primary goal is to extract a LEF file from a given layout, such as that of a simple CMOS inverter, adhering to the standard format. To achieve this, defining ports and accurately configuring class and use attributes for each port serves as the initial step.
+<br />
 To streamline the process of port definition, the Magic Layout window proves to be invaluable. Here's how you can proceed:
-1. Launch the Magic Layout window.
-2. Source the designated `.mag` file for your design (in this case, the inverter layout).
-3. Navigate to the menu: Edit >> Text. This action opens a dialogue box.
-Standard Cell LEF generation
+- Launch the Magic Layout window.
+-  Source the designated `.mag` file for your design (in this case, the inverter layout).
+-   Navigate to the menu: Edit >> Text. This action opens a dialogue box.
+
+### Standard Cell LEF generation
 Before the CMOS Inverter standard cell LEF is extracted, the purpose of ports must be defined: Select port A in magic:
+<br />
 port class input
 port use signal
 
-
+<br />
 Select Y area
 port class output
 port class signal
+<br />
 
 
 Select VPWR area
 port class inout
 port use power
 
+<br />
 
 Select VGND area
 port class inout
 port use ground
 
 
+<br />
 LEF extraction can be carried out in tkcon as follows:
 lef write
 
 
+<br />
 This generates sky130_vsdinv.lef file.
 
-Post-synthesis timing analysis
+<br />
+#### Post-synthesis timing analysis
 Timing analysis is carried out outside the openLANE flow using OpenSTA tool. For this, a new file pre_sta.conf is created. This file would be reqiured to carry out the STA analysis. Invoke OpenSTA outside the openLANE flow as follows:
 sta pre_sta.conf
-Clock Tree Synthesis
+<br />
+#### Clock Tree Synthesis
 Clock Tree Synthesis is a technique for distributing the clock equally among all sequential parts of a VLSI design. The purpose of Clock Tree Synthesis is to reduce skew and delay.
 The purpose of building a clock tree is enable the clock input to reach every element and to ensure a zero clock skew. H-tree is a common methodology followed in CTS. Before attempting a CTS run in TritonCTS tool, if the slack was attempted to be reduced in previous run, the netlist may have gotten modified by cell replacement techniques. Therefore, the verilog file needs to be modified using the write_verilog command. Then, the synthesis, floorplan and placement is run again. To run CTS use the below command:
 run_cts
 
-Day 5: Final steps in RTL2GDS
-Power Distribution Network generation
+### Day 5: Final steps in RTL2GDS
+#### Power Distribution Network generation
 Unlike the general ASIC flow, Power Distribution Network generation is not a part of floorplan run in OpenLANE. PDN must be generated after CTS and post-CTS STA analyses:
+<br />
 gen_pdn
-
+<br />
 
 We can confirm the success of PDN by checking the current def environment variable: echo $::env(CURRENT_DEF)
-Routing
+#### Routing
 OpenLANE uses the TritonRoute tool for routing. There are 2 stages of routing:
-Global routing: Routing region is divided into rectangle grids which are represented as course 3D routes (Fastroute tool)
-Detailed routing: Finer grids and routing guides used to implement physical wiring (TritonRoute tool)
+- Global routing: Routing region is divided into rectangle grids which are represented as course 3D routes (Fastroute tool)
+- Detailed routing: Finer grids and routing guides used to implement physical wiring (TritonRoute tool)
 Features of TritonRoute:
-Honouring pre-processed route guides
-Assumes that each net satisfies inter guide connectivity
-Uses MILP based panel routing scheme
-Intra-layer parallel and inter-layer sequential routing framework
+- Honouring pre-processed route guides
+- Assumes that each net satisfies inter guide connectivity
+- Uses MILP based panel routing scheme
+- Intra-layer parallel and inter-layer sequential routing framework
+<br />
 Running routing step in TritonRoute as part of openLANE flow:
+<br />
 run_routing
-Differences from older OpenLANE versions
+<br />
+#### Differences from older OpenLANE versions
 Recent OpenLANE versions exhibit advancements in optimization algorithms, standard cell libraries, power planning, and automation, contributing to improved chip performance and design efficiency compared to older versions.
-Future Scope
-Design of custom standard cells such as NAND, OR, clock buffers and integrating them in the openLANE flow.
-Detailed IP characterization for all corner models
+##Future Scope
+- Design of custom standard cells such as NAND, OR, clock buffers and integrating them in the openLANE flow.
+- Detailed IP characterization for all corner models
 
 
 

@@ -528,6 +528,7 @@ run_routing
 <br />
 #### Differences from older OpenLANE versions
 Recent OpenLANE versions exhibit advancements in optimization algorithms, standard cell libraries, power planning, and automation, contributing to improved chip performance and design efficiency compared to older versions.
+
 ##Future Scope
 - Design of custom standard cells such as NAND, OR, clock buffers and integrating them in the openLANE flow.
 - Detailed IP characterization for all corner models

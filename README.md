@@ -229,6 +229,8 @@ With these steps and adjustments, you can effectively execute the picorv32a floo
 
 .
 ### Run_floorplan
+![Screenshot from 2023-08-13 16-14-37](https://github.com/akritiyadav123/VSLI_Physical_Design_Workshop/assets/126105656/4e1a2061-fc63-4f61-a805-8b9f143754ae)
+
 
 
 

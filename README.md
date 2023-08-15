@@ -162,11 +162,8 @@ SS
 - The merged file is created during the merging operation in the pircorv32a design preparation (it merges lef and techlef files)
 - Next, we run the synthesis of picorv32a design in the openlane interactive terminal:
 
+Run synthesis
 
-### Run synthesis
-
-
-### SS
 
 - The yosys and ABC tools are utilised to convert RTL to gate level netlist.
 - Calcuation of Flop Ratio:<br \>
@@ -179,6 +176,7 @@ Flop ratio = 1613/14876 = 0.1084 = 10.84%</b>
 - We may check the success of the synthesis step by checking the synthesis folder for the synthesized netlist file (.v file)
 - The synthesis statistics report can be accessed within the reports directory. It is usually the last yosys file since files are listed chronologically by date of modification.
 - The synthesis timings report are as follows:
+![WhatsApp Image 2023-08-15 at 10 01 52 PM](https://github.com/akritiyadav123/VSLI_Physical_Design_Workshop/assets/126105656/d016b8fc-d50b-47f4-80fa-804f8a3288eb)
 
 ### Day 2 Floorplanning & Placement and library cells
 ### Floorplanning considerations

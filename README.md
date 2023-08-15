@@ -247,7 +247,8 @@ After the completion of the floorplan run, you will find a `.def` file within th
 Magic provides an intuitive environment for viewing and manipulating integrated circuit layouts, including floorplans. By following these steps, you can effectively examine and analyze the floorplan layout using Magic.
 <br />
 magic -T /home/vsduser/OpenLane/pdks/sky130A/libs.tech/magic/sky130A.tech lef read ../../tmp/merged.min.lef def read picorv32a.def &
-![Screenshot from 2023-08-14 19-10-16](https://github.com/akritiyadav123/VSLI_Physical_Design_Workshop/assets/126105656/adabdd6a-2021-4f08-936d-12349fd9e7e5)
+![Screenshot from 2023-08-14 19-10-16](https://github.com/akritiyadav123/VSLI_Physical_Design_Workshop/assets/126105656/d234d5ff-b056-43c1-8be5-4eaaab57518c)
+
 
 - One can zoom into Magic layout by selecting an area with left and right mouse click followed by pressing "z" key.
 - Various components can be identified by using the what command in tkcon window after making a selection on the component.

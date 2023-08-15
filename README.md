@@ -1,4 +1,4 @@
-![Screenshot from 2023-08-14 16-08-26 (1)](https://github.com/akritiyadav123/VSLI_Physical_Design_Workshop/assets/126105656/459accd4-8c08-44da-b17b-f2d4803c81a3)# VSLI_Physical_Design_Workshop
+# VSLI_Physical_Design_Workshop
 # Workshop Day wise Content :
 ## Day1 – Inception of open-source EDA, OpenLANE and Sky130 PDK
 How to talk to computers
@@ -247,11 +247,14 @@ After the completion of the floorplan run, you will find a `.def` file within th
 Magic provides an intuitive environment for viewing and manipulating integrated circuit layouts, including floorplans. By following these steps, you can effectively examine and analyze the floorplan layout using Magic.
 <br />
 magic -T /home/vsduser/OpenLane/pdks/sky130A/libs.tech/magic/sky130A.tech lef read ../../tmp/merged.min.lef def read picorv32a.def &
+![Screenshot from 2023-08-14 19-10-16](https://github.com/akritiyadav123/VSLI_Physical_Design_Workshop/assets/126105656/adabdd6a-2021-4f08-936d-12349fd9e7e5)
 
 - One can zoom into Magic layout by selecting an area with left and right mouse click followed by pressing "z" key.
 - Various components can be identified by using the what command in tkcon window after making a selection on the component.
 - Zooming in also provides a view of decaps present in picorv32a chip.
 - The standard cell can be found at the bottom left corner.
+![Screenshot from 2023-08-14 19-10-29](https://github.com/akritiyadav123/VSLI_Physical_Design_Workshop/assets/126105656/c13cc0ed-5c24-480a-9bab-6b80d0b7fbb7)
+![Screenshot from 2023-08-14 19-08-09](https://github.com/akritiyadav123/VSLI_Physical_Design_Workshop/assets/126105656/ce1aad9e-5342-4e69-b17c-7346761d7b27)
 
 
 
@@ -270,6 +273,8 @@ Legalisation of cells is important from timing point of view.
 
 <b> Command: </b>
 run_placement
+![placem](https://github.com/akritiyadav123/VSLI_Physical_Design_Workshop/assets/126105656/643776b9-edf9-40fb-84ec-55557ec7b2d1)
+
 
 ##### Placement Aim: Converging Overflow
 The primary objective of placement is to achieve the convergence of the overflow value. Gradual reduction in the overflow value throughout placement indicates successful convergence and a favorable placement outcome.
@@ -277,8 +282,12 @@ The primary objective of placement is to achieve the convergence of the overflow
 Design Visualization in Magic -Once placement is completed, visualize the design using the Magic layout tool in the `results/placement` directory. This step allows you to assess the design layout and evaluate the placement results..
 
 magic -T /home/vsduser/OpenLane/pdks/sky130A/libs.tech/magic/sky130A.tech lef read ../../tmp/merged.max.lef def read picorv32a.def &
+![Screenshot from 2023-08-14 20-01-41](https://github.com/akritiyadav123/VSLI_Physical_Design_Workshop/assets/126105656/a18d2022-962d-4e80-9e50-6a131a87d7ae)
+
 
 #### Zoomed-in views of the standard cell placement:
+
+![ay](https://github.com/akritiyadav123/VSLI_Physical_Design_Workshop/assets/126105656/462e41c5-4f5c-4e70-9bad-d39a290995ca)
 
 ## standard cell design flow 
 ### Inputs
@@ -357,6 +366,8 @@ The 16-mask CMOS process consists of the following steps:
 3. Invoking `sky130_inv.mag` in Magic:
     View the `sky130_inv.mag` file in Magic effortlessly using.
     magic -T sky130A.tech sky130_inv.mag &
+   ![Screenshot from 2023-08-15 00-49-31](https://github.com/akritiyadav123/VSLI_Physical_Design_Workshop/assets/126105656/943c67da-16a2-4a02-8976-b4fd95383bad)
+
 
 In Sky130 the first layer is called the local interconnect layer or Locali.
 To verify whether the layout is that of CMOS inverter, verification of P-diffusiona nd N-diffusion regions with Polysilicon can be observed.
@@ -371,6 +382,9 @@ extract all
 ext2spice cthresh 0 rethresh 0
 <br />
 Ext2spice
+
+![VirtualBox_vsdworkshop_15_08_2023_00_57_20](https://github.com/akritiyadav123/VSLI_Physical_Design_Workshop/assets/126105656/ed1c14ec-530d-4c00-ab69-0f15c3961ec7)
+
 <b>
 This generates the sky130_in.spice file. This SPICE deck is edited to include pshort.lib and nshort.lib which are the PMOS and NMOS libraries respectively. In addition, the minimum grid size of inverter is measured from the magic layout and incorporated into the deck as: .option scale=0.01u. The model names in the MOSFET definitions are changed to pshort.model.0 and nshort.model.0 respectively for PMOS and NMOS.
 Finally voltage sources and simulation commands are defined as follows:
@@ -393,11 +407,12 @@ run
 <br />
 The final sky130_inv.spice file is modified to:
 
+![plot y vs a](https://github.com/akritiyadav123/VSLI_Physical_Design_Workshop/assets/126105656/3e7953d5-c3d1-4c90-83fa-1a797ad1868e)
+
 <br />
 For simulation, ngspice is invoked in the terminal:
 <br />
 ngspice sky130_inv.spice
-
 
 <br />
 The output "y" is to be plotted with "time" and swept over the input "a":
@@ -405,10 +420,12 @@ The output "y" is to be plotted with "time" and swept over the input "a":
 plot y vs time a 
 </b>
 
+![akk](https://github.com/akritiyadav123/VSLI_Physical_Design_Workshop/assets/126105656/5dcc6574-c660-459e-b43b-47bd0972ba42)
 
 
 The waveform obtained is as shown:
 
+![aas](https://github.com/akritiyadav123/VSLI_Physical_Design_Workshop/assets/126105656/720ae421-4549-455e-af0a-38f7a4482d39)
 
 
 The spikes in the output at switching points is due to low capacitance loads. This can be taken care of by editing the spice deck to increase the load capacitance value.

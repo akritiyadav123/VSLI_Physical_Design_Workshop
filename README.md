@@ -67,6 +67,7 @@ RTL2GDS is the process of converting a Register Transfer Level (RTL) design into
 - Signoff: Verify the physical design (DRC, LVS) and timing (STA).
 
 
+![why-to-adopt-the-asic-design-flow-1](https://github.com/akritiyadav123/VSLI_Physical_Design_Workshop/assets/126105656/6a240b02-3d98-4870-83a1-49ffe7fc79d0)
 
 
 
